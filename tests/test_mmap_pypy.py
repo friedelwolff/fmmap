@@ -1,6 +1,7 @@
 from __future__ import with_statement
 #from rpython.tool.udir import udir
 import os, sys, py
+import shutil
 
 import pytest
 from pytest import raises, skip
@@ -14,7 +15,12 @@ class TestAppTestMMap:
 
 
     def setup_class(cls):
-         cls.tmpname = "./tmp/mmap-"
+        shutil.rmtree("./tmp", ignore_errors=True)
+        os.mkdir('./tmp')
+        cls.tmpname = "./tmp/mmap-"
+
+    def teardown_class(cls):
+        shutil.rmtree("./tmp")
 
     def setup_method(self, meth):
         if getattr(meth, 'is_large', False):
