@@ -15,6 +15,37 @@ cdef extern from *:
                  const void *needle, size_t needlelen) nogil
 
 
+_transform_flush_return_value = lambda value: value
+
+
+if sys.version_info < (3, 8):
+    # We want to implement the return convention for flush() introduced in
+    # Python 3.8. If we are running on an earlier version, let's massage the
+    # return value:
+
+    IF UNAME_SYSNAME == "Windows":
+        from cpython.exc import PyErr_SetFromWindowsErr
+
+        def _transform_flush_return_value(value):
+            if value == 0:
+                # error
+                PyErr_SetFromWindowsErr(0)
+            else:
+                # success
+                return None
+    ELSE:
+        def _transform_flush_return_value(value):
+            # unix (and others)
+            if value == 0:
+                # success
+                return None
+            else:
+                # error
+                # Should not be reached, since flush() raises an exception on
+                # errors on Python < 3.8
+                pass
+
+
 _mmap = mmap
 
 class mmap(_mmap):
@@ -46,6 +77,12 @@ class mmap(_mmap):
                 f"pos={self.tell()}, "
                 f"offset={self.offset}>"
             )
+
+    if sys.version_info < (3, 8):
+
+        def flush(self, *args, **kwargs):
+            value = super().flush(*args, **kwargs)
+            return _transform_flush_return_value(value)
 
     def find(object self, sub, start=None, end=None):
         cdef const unsigned char[:] buf = self
@@ -97,7 +134,6 @@ class mmap(_mmap):
         return c - buf_p + start
         
     #TODO:
-    # - flush
     # - madvise
     # - rfind
     # - readline
