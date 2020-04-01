@@ -1,0 +1,12 @@
+include pyproject.toml
+
+include fmmap.pyx
+include .travis.yml
+include tox.ini
+recursive-include tests *.py
+
+# Include the README
+include *.rst
+
+# Include the license file
+include LICENSE.txt
