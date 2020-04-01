@@ -19,6 +19,34 @@ _mmap = mmap
 
 class mmap(_mmap):
 
+    if sys.version_info < (3, 9):
+
+        def __init__(self, *args, **kwargs):
+            # remember a few parameters for __repr__
+            access = kwargs.get("access", 0)  # kwarg only
+            offset = kwargs.get("offset", 0)  # kwarg only
+            self.access = access
+            self.offset = offset
+            _mmap.__init__(*args, **kwargs)
+
+        def __repr__(self):
+            if self.closed:
+                return "<fmmap.mmap closed=True>"
+            names = {
+                    ACCESS_DEFAULT: "ACCESS_DEFAULT",
+                    ACCESS_READ: "ACCESS_READ",
+                    ACCESS_WRITE: "ACCESS_WRITE",
+                    ACCESS_COPY: "ACCESS_COPY",
+            }
+            access = names.get(self.access, "unknown!")
+            return ("<fmmap.mmap "
+                f"closed=False, "
+                f"access={access}, "
+                f"length={len(self)}, "
+                f"pos={self.tell()}, "
+                f"offset={self.offset}>"
+            )
+
     def find(object self, sub, start=None, end=None):
         cdef const unsigned char[:] buf = self
         if start is None:
