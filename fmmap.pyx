@@ -56,6 +56,10 @@ if sys.version_info < (3, 8):
     MADV_DONTNEED = mman.MADV_DONTNEED
 
 
+if sys.version_info < (3, 7):
+    ACCESS_DEFAULT = 0
+
+
 _mmap = mmap
 
 class mmap(_mmap):

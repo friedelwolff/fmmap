@@ -29,7 +29,7 @@ Installation and usage
 The following requirements are supported and tested in all reasonable
 combinations:
 
-- Python versions: 3.7, 3.8.
+- Python versions: 3.6, 3.7, 3.8.
 - Interpreters: CPython.
 
 .. code:: shell
