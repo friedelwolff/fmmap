@@ -45,6 +45,16 @@ if sys.version_info < (3, 8):
                 # errors on Python < 3.8
                 pass
 
+    # Constants needed for madvise
+
+    from posix cimport mman
+
+    MADV_NORMAL = mman.MADV_NORMAL
+    MADV_RANDOM = mman.MADV_RANDOM
+    MADV_SEQUENTIAL = mman.MADV_SEQUENTIAL
+    MADV_WILLNEED = mman.MADV_WILLNEED
+    MADV_DONTNEED = mman.MADV_DONTNEED
+
 
 _mmap = mmap
 
@@ -79,6 +89,28 @@ class mmap(_mmap):
             )
 
     if sys.version_info < (3, 8):
+
+        def madvise(self, option, start=0, length=None):
+            cdef const unsigned char[:] buf = self
+            cdef int buf_len = len(buf)
+            cdef void *buf_p
+
+            if length is None:
+                length = buf_len
+
+            if start < 0 or start >= buf_len:
+                raise ValueError("madvise start out of bounds")
+            if length < 0:
+                raise ValueError("madvise length invalid")
+            if sys.maxsize - start < length:
+                raise OverflowError("madvise length too large")
+
+            if start + length > buf_len:
+                length = buf_len - start
+
+            buf_p = &buf[start]
+            if mman.madvise(buf_p, length, option) != 0:
+                return -1
 
         def flush(self, *args, **kwargs):
             value = super().flush(*args, **kwargs)
@@ -134,7 +166,6 @@ class mmap(_mmap):
         return c - buf_p + start
         
     #TODO:
-    # - madvise
     # - rfind
     # - readline
     # - move?
