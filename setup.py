@@ -42,22 +42,10 @@ setup(
 
     # For a list of valid classifiers, see https://pypi.org/classifiers/
     classifiers=[  # Optional
-        # How mature is this project? Common values are
-        #   3 - Alpha
-        #   4 - Beta
         #   5 - Production/Stable
-        'Development Status :: 3 - Alpha',
-
-        # Indicate who your project is intended for
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
-
-        # Pick your license as you wish
         'License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)',
-
-        # Specify the Python versions you support here. In particular, ensure
-        # that you indicate whether you support Python 2, Python 3 or both.
-        # These classifiers are *not* checked by 'pip install'. See instead
-        # 'python_requires' below.
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
