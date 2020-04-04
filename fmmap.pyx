@@ -67,6 +67,7 @@ class mmap(_mmap):
     if sys.version_info < (3, 9):
 
         def __init__(self, *args, **kwargs):
+            self._fileno = kwargs.get("fileno", args[0])
             # remember a few parameters for __repr__
             self._access = kwargs.get("access", 0)  # kwarg only
             self._offset = kwargs.get("offset", 0)  # kwarg only
@@ -136,7 +137,12 @@ class mmap(_mmap):
                 raise TypeError()
             if newsize < 0 or sys.maxsize - newsize < self._offset:
                 raise ValueError("new size out of range")
-            super().resize(newsize)
+            if self.fileno != -1:
+                super().resize(newsize)
+            # There is a bug in Python versions before 3.6. It would call
+            # ftruncate(2) on file descriptor -1 (anonymous memory, so we can't
+            # fall back on the built-in implementation.
+            raise SystemError("Can't resize anonymous memory in Python < 3.6")
 
     def find(object self, sub, start=None, end=None):
         cdef const unsigned char[:] buf = self
