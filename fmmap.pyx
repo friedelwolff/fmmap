@@ -139,9 +139,11 @@ class mmap(_mmap):
                 raise ValueError("new size out of range")
             if self._fileno != -1:
                 super().resize(newsize)
+                return
+
             # There is a bug in Python versions before 3.6. It would call
-            # ftruncate(2) on file descriptor -1 (anonymous memory, so we can't
-            # fall back on the built-in implementation.
+            # ftruncate(2) on file descriptor -1 (anonymous memory), so we
+            # can't fall back on the built-in implementation.
             raise SystemError("Can't resize anonymous memory in Python < 3.6")
 
     def find(object self, sub, start=None, end=None):
