@@ -9,9 +9,8 @@ python:
 
 jobs:
   allow_failures:
-    - python:
-      - "3.4"
-      - "3.5"
+    - python: "3.4"
+    - python: "3.5"
 
 install: pip install tox-travis
 
