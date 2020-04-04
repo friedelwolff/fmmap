@@ -4,6 +4,10 @@ fmmap -- A fast implementation of mmap
 
 This module is a reimplementation of Python's builtin module mmap. It aims to
 provide better performance while being API compatible with the builtin module.
+Development tracks new Python versions, therefore this module is mostly usable
+as a backport to older Python versions -- consult the documentation about any
+changes to the mmap API in Python. You should be able to shadow the builtin
+module and forget about it.
 
 .. code:: python
 
@@ -22,6 +26,15 @@ Currently only the `find()` function is improved over the
 version in the standard library. More might follow, and contributions are
 welcome.
 
+A number of features and API changes introduced between Python 3.7 - Python 3.9
+are supported on older versions, notably:
+
+- The API of `flush()` works like Python > 3.7.
+- `madvise()` is implemented and most of the `MADV_...` constants are exposed.
+
+Currently, the API of `write()` will still be unchanged from your current
+Python version. (The number of bytes written is returned since Python 3.6.)
+
 
 Installation and usage
 ----------------------
@@ -31,6 +44,11 @@ combinations:
 
 - Python versions: 3.6, 3.7, 3.8.
 - Interpreters: CPython.
+
+The speed improvements depend on the quality of implementation of certain
+functions in your C library. Recent versions of glibc is known to be very good.
+Other C libraries are not really tested, and the performance advantage over the
+built-in module might be smaller.
 
 .. code:: shell
 
