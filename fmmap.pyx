@@ -120,6 +120,19 @@ class mmap(_mmap):
             value = super().flush(*args, **kwargs)
             return _transform_flush_return_value(value)
 
+    if sys.version_info < (3, 6):
+
+        def __add__(self, value):
+            raise TypeError()
+
+        def __mul__(self, value):
+            raise TypeError()
+
+        def write(self, bytes):
+            cdef int bytes_len = len(bytes)
+            super().write(bytes)
+            return bytes_len
+
     def find(object self, sub, start=None, end=None):
         cdef const unsigned char[:] buf = self
         if start is None:
@@ -173,6 +186,3 @@ class mmap(_mmap):
     # - rfind
     # - readline
     # - move?
-    # - write:
-    #   Changed in version 3.5: Writable bytes-like object is now accepted.
-    #   Changed in version 3.6: The number of bytes written is now returned.
