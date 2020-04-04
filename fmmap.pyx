@@ -133,6 +133,13 @@ class mmap(_mmap):
             super().write(bytes)
             return bytes_len
 
+        def resize(self, newsize):
+            if self.access not in (ACCESS_WRITE, ACCESS_DEFAULT):
+                raise TypeError()
+            if newsize < 0 or sys.maxsize - newsize < self.offset:
+                raise ValueError("new size out of range")
+            super().resize(newsize)
+
     def find(object self, sub, start=None, end=None):
         cdef const unsigned char[:] buf = self
         if start is None:
