@@ -26,14 +26,11 @@ Currently only the `find()` function is improved over the
 version in the standard library. More might follow, and contributions are
 welcome.
 
-A number of features and API changes introduced between Python 3.7 - Python 3.9
-are supported on older versions, notably:
+A number of features, bug fixes and API changes introduced between Python 3.6 -
+Python 3.9 are supported on older versions, notably:
 
 - The API of `flush()` works like Python > 3.7.
 - `madvise()` is implemented and most of the `MADV_...` constants are exposed.
-
-Currently, the API of `write()` will still be unchanged from your current
-Python version. (The number of bytes written is returned since Python 3.6.)
 
 
 Installation and usage
@@ -42,7 +39,7 @@ Installation and usage
 The following requirements are supported and tested in all reasonable
 combinations:
 
-- Python versions: 3.6, 3.7, 3.8.
+- Python versions: 3.5, 3.6, 3.7, 3.8.
 - Interpreters: CPython.
 
 The speed improvements depend on the quality of implementation of certain
