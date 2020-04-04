@@ -68,10 +68,8 @@ class mmap(_mmap):
 
         def __init__(self, *args, **kwargs):
             # remember a few parameters for __repr__
-            access = kwargs.get("access", 0)  # kwarg only
-            offset = kwargs.get("offset", 0)  # kwarg only
-            self.access = access
-            self.offset = offset
+            self._access = kwargs.get("access", 0)  # kwarg only
+            self._offset = kwargs.get("offset", 0)  # kwarg only
             _mmap.__init__(*args, **kwargs)
 
         def __repr__(self):
@@ -83,13 +81,13 @@ class mmap(_mmap):
                     ACCESS_WRITE: "ACCESS_WRITE",
                     ACCESS_COPY: "ACCESS_COPY",
             }
-            access = names.get(self.access, "unknown!")
+            access = names.get(self._access, "unknown!")
             return ("<fmmap.mmap "
                 f"closed=False, "
                 f"access={access}, "
                 f"length={len(self)}, "
                 f"pos={self.tell()}, "
-                f"offset={self.offset}>"
+                f"offset={self._offset}>"
             )
 
     if sys.version_info < (3, 8):
@@ -134,9 +132,9 @@ class mmap(_mmap):
             return bytes_len
 
         def resize(self, newsize):
-            if self.access not in (ACCESS_WRITE, ACCESS_DEFAULT):
+            if self._access not in (ACCESS_WRITE, ACCESS_DEFAULT):
                 raise TypeError()
-            if newsize < 0 or sys.maxsize - newsize < self.offset:
+            if newsize < 0 or sys.maxsize - newsize < self._offset:
                 raise ValueError("new size out of range")
             super().resize(newsize)
 
