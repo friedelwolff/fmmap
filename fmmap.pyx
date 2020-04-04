@@ -137,7 +137,7 @@ class mmap(_mmap):
                 raise TypeError()
             if newsize < 0 or sys.maxsize - newsize < self._offset:
                 raise ValueError("new size out of range")
-            if self.fileno != -1:
+            if self._fileno != -1:
                 super().resize(newsize)
             # There is a bug in Python versions before 3.6. It would call
             # ftruncate(2) on file descriptor -1 (anonymous memory, so we can't
