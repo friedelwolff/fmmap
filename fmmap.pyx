@@ -128,9 +128,9 @@ class mmap(_mmap):
             raise TypeError()
 
         def write(self, bytes):
-            cdef int bytes_len = len(bytes)
-            super().write(bytes)
-            return bytes_len
+            cdef const unsigned char[:] buf = bytes
+            super().write(buf)
+            return len(buf)
 
         def resize(self, newsize):
             if self._access not in (ACCESS_WRITE, ACCESS_DEFAULT):
