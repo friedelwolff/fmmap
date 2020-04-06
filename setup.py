@@ -29,12 +29,10 @@ here = path.abspath(path.dirname(__file__))
 with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
-# Arguments marked as "Required" below must be included for upload to PyPI.
-# Fields marked as "Optional" may be commented out.
 
 setup(
     name='fmmap',
-    version='0.1.0',
+    version='0.2.0',
     description='A fast reimplementation of mmap',
     long_description=long_description,
     author='Friedel Wolff',
