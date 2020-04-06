@@ -39,7 +39,7 @@ Installation and usage
 The following requirements are supported and tested in all reasonable
 combinations:
 
-- Python versions: 3.5, 3.6, 3.7, 3.8.
+- Python versions: 3.5 3.6, 3.7, 3.8. Version 3.4 passes most of the test suite.
 - Interpreters: CPython.
 
 The speed improvements depend on the quality of implementation of certain
