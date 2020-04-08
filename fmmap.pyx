@@ -159,7 +159,7 @@ class mmap(_mmap):
         cdef const unsigned char[:] buf = self
         cdef const unsigned char[:] needle = r
         cdef int buf_len = len(buf)
-        cdef int needle_len = len(r)
+        cdef int needle_len = len(needle)
         cdef void *c
         cdef void *buf_p
         cdef void *needle_p
