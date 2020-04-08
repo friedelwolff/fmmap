@@ -2,7 +2,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 #
-# cython: language_level: 3
+# cython: language_level=3
 
 from mmap import *
 import sys
