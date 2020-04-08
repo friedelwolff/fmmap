@@ -22,7 +22,7 @@ of the implementation is not as fast as possible.
 
 Summary of the project status:
 
-Currently only the `find()` function is improved over the
+Currently only the `find()` and `rfind()` functions are improved over the
 version in the standard library. More might follow, and contributions are
 welcome.
 

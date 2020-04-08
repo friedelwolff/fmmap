@@ -10,6 +10,8 @@ import sys
 import cython
 
 cdef extern from *:
+    void *memrchr(const void *haystack, const int c, size_t haystacklen) nogil
+    int memcmp(const void *s1, const void *s2, size_t n) nogil
     #GNU extension to glibc
     void *memmem(const void *haystack, size_t haystacklen,
                  const void *needle, size_t needlelen) nogil
@@ -195,7 +197,75 @@ class mmap(_mmap):
             return -1
         return c - buf_p + start
         
+    def rfind(object self, sub, start=None, end=None):
+        cdef const unsigned char[:] buf = self
+        if start is None:
+            start = self.tell()
+        if end is None:
+            end = len(buf)
+        return self._rfind(sub, start, end)
+
+    @cython.boundscheck(False)
+    def _rfind(object self, r, int start, int end):
+        cdef const unsigned char[:] buf = self
+        cdef const unsigned char[:] needle = r
+        cdef int buf_len = len(buf)
+        cdef int needle_len = len(needle)
+        cdef void *c = NULL
+        cdef void *buf_p
+        cdef void *needle_p
+        cdef ssize_t i
+
+        # negative slicing and bounds checking
+        if start < 0:
+            start += buf_len
+            if start < 0:
+                start = 0
+        elif start > buf_len:
+            start = buf_len
+        if end < 0:
+            end += buf_len
+            if end < 0:
+                end = 0
+        elif end > buf_len:
+            end = buf_len
+
+        # trivial cases
+        if start >= end:
+            return -1
+        if needle_len == 0:
+            return 0
+        if buf_len == 0 or needle_len > buf_len:
+            return -1
+
+        with nogil:
+            # Maybe not as fast as a good memmem(), but memrchr is hopefully
+            # optimised. Worst case is still O(nm) where
+            #  - n = len(buf)
+            #  - m = len(needle)
+            # Hopefully it is still faster than the naive algorithm in
+            # CPython, or looping ourselves here.
+            #
+            # We repeatedly search for the first byte of needle from end to
+            # start. When finding it, we check if the whole needle is there.
+
+            buf_p = &buf[start]
+            needle_p = &needle[0]
+            i = end - start - needle_len + 1
+            c = memrchr(buf_p, needle[0], i)
+            while c:
+                if memcmp(c, needle_p, needle_len) == 0:
+                    break
+                i = c - buf_p - 1
+                if i <= 0:
+                    c = NULL
+                    break
+                c = memrchr(buf_p, needle[0], i)
+
+        if c is NULL:
+            return -1
+        return c - buf_p + start
+
     #TODO:
-    # - rfind
     # - readline
     # - move?
