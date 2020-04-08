@@ -26,7 +26,7 @@ Currently only the `find()` and `rfind()` functions are improved over the
 version in the standard library. More might follow, and contributions are
 welcome.
 
-A number of features, bug fixes and API changes introduced between Python 3.6 -
+A number of features, bug fixes and API changes introduced between Python 3.5 -
 Python 3.9 are supported on older versions, notably:
 
 - The API of `flush()` works like Python > 3.7.
@@ -36,10 +36,9 @@ Python 3.9 are supported on older versions, notably:
 Installation and usage
 ----------------------
 
-The following requirements are supported and tested in all reasonable
-combinations:
+The following requirements are supported and tested:
 
-- Python versions: 3.5 3.6, 3.7, 3.8. Version 3.4 passes most of the test suite.
+- Python versions: 3.4, 3.5, 3.6, 3.7, 3.8.
 - Interpreters: CPython.
 
 The speed improvements depend on the quality of implementation of certain
