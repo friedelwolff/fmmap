@@ -22,15 +22,15 @@ of the implementation is not as fast as possible.
 
 Summary of the project status:
 
-Currently only the `find()` and `rfind()` functions are improved over the
+Currently the ``find()`` and ``rfind()`` functions should be faster than the
 version in the standard library. More might follow, and contributions are
 welcome.
 
 A number of features, bug fixes and API changes introduced between Python 3.5 -
 Python 3.9 are supported on older versions, notably:
 
-- The API of `flush()` works like Python > 3.7.
-- `madvise()` is implemented and most of the `MADV_...` constants are exposed.
+- The API of ``flush()`` works like Python > 3.7.
+- ``madvise()`` is implemented and most of the ``MADV_...`` constants are exposed.
 
 
 Installation and usage
