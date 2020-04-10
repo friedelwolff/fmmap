@@ -237,6 +237,8 @@ class mmap(_mmap):
             return 0
         if buf_len == 0 or needle_len > buf_len:
             return -1
+        if needle_len > end - start:
+            return -1
 
         with nogil:
             # Maybe not as fast as a good memmem(), but memrchr is hopefully
