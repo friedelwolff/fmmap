@@ -2,18 +2,13 @@
 from setuptools import setup, find_packages
 from distutils.extension import Extension
 from os import path
-# io.open is needed for projects that support Python 2.7
-# It ensures open() defaults to text mode with universal newlines,
-# and accepts an argument to specify the text encoding
-# Python 3 only projects can skip this import
-from io import open
-
 
 try:
     from Cython.Build import cythonize
     USE_CYTHON = True
 except ImportError:
     USE_CYTHON = False
+
 
 ext = '.pyx' if USE_CYTHON else '.c'
 extensions = [Extension("fmmap", ["fmmap"+ext])]
@@ -32,7 +27,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='fmmap',
-    version='0.3.1',
+    version='0.4.0',
     description='A fast reimplementation of mmap',
     long_description=long_description,
     author='Friedel Wolff',

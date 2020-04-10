@@ -14,7 +14,7 @@ module and forget about it.
     import fmmap as mmap
 
 Memory mapping is a technique of providing access to a file by mapping it into
-the virtual address space of the function and letting the operating system
+the virtual address space of the process and letting the operating system
 handle the input and output instead of explicitely reading from or writing to
 the file. It can provide better performance over normal file access in some
 cases. The builtin mmap mobule in Python exposes this functionality, but some
