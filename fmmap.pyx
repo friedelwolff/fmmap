@@ -256,11 +256,7 @@ class mmap(_mmap):
             while c:
                 if memcmp(c, needle_p, needle_len) == 0:
                     break
-                i = c - buf_p - 1
-                if i <= 0:
-                    c = NULL
-                    break
-                c = memrchr(buf_p, needle[0], i)
+                c = memrchr(buf_p, needle[0], c - buf_p)
 
         if c is NULL:
             return -1
