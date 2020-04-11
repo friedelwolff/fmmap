@@ -15,3 +15,8 @@ def test_needle_too_big():
     m.seek(0)
     assert m.find(b"abc", 9) == -1
     assert m.rfind(b"abc", 9) == -1
+
+
+def test_clean_namespace():
+    # We shouldn't soil the module namespace with our own extras
+    assert getattr(mmap, "version_info", None) is None

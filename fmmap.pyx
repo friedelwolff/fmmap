@@ -6,6 +6,8 @@
 
 from mmap import *
 import sys
+version_info = sys.version_info
+
 
 import cython
 
@@ -20,7 +22,7 @@ cdef extern from *:
 _transform_flush_return_value = lambda value: value
 
 
-if sys.version_info < (3, 8):
+if version_info < (3, 8):
     # We want to implement the return convention for flush() introduced in
     # Python 3.8. If we are running on an earlier version, let's massage the
     # return value:
@@ -58,7 +60,7 @@ if sys.version_info < (3, 8):
     MADV_DONTNEED = mman.MADV_DONTNEED
 
 
-if sys.version_info < (3, 7):
+if version_info < (3, 7):
     ACCESS_DEFAULT = 0
 
 
@@ -66,7 +68,7 @@ _mmap = mmap
 
 class mmap(_mmap):
 
-    if sys.version_info < (3, 9):
+    if version_info < (3, 9):
 
         def __init__(self, *args, **kwargs):
             self._fileno = kwargs.get("fileno", args[0])
@@ -93,7 +95,7 @@ class mmap(_mmap):
                 f"offset={self._offset}>"
             )
 
-    if sys.version_info < (3, 8):
+    if version_info < (3, 8):
 
         def madvise(self, option, start=0, length=None):
             cdef const unsigned char[:] buf = self
@@ -121,7 +123,7 @@ class mmap(_mmap):
             value = super().flush(*args, **kwargs)
             return _transform_flush_return_value(value)
 
-    if sys.version_info < (3, 6):
+    if version_info < (3, 6):
 
         def __add__(self, value):
             raise TypeError()
@@ -147,6 +149,7 @@ class mmap(_mmap):
             # ftruncate(2) on file descriptor -1 (anonymous memory), so we
             # can't fall back on the built-in implementation.
             raise SystemError("Can't resize anonymous memory in Python < 3.6")
+
 
     def find(object self, sub, start=None, end=None):
         cdef const unsigned char[:] buf = self
@@ -267,3 +270,6 @@ class mmap(_mmap):
     #TODO:
     # - readline
     # - move?
+
+
+del version_info
