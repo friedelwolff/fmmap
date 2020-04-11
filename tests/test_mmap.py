@@ -767,7 +767,7 @@ class MmapTests(unittest.TestCase):
                                    offset=offset) as mm:
                         mm.seek(pos)
                         match = open_mmap_repr_pat.match(repr(mm))
-                        self.assertIsNotNone(match)
+                        self.assertIsNotNone(match, repr(mm))
                         self.assertEqual(match.group('access'), access)
                         self.assertEqual(match.group('length'), str(length))
                         self.assertEqual(match.group('pos'), str(pos))
