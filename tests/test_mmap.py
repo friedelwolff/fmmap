@@ -741,7 +741,7 @@ class MmapTests(unittest.TestCase):
 
     def test_repr(self):
         open_mmap_repr_pat = re.compile(
-            r"<fmmap.mmap closed=False, "
+            r"<f?mmap.mmap closed=False, "
             r"access=(?P<access>\S+), "
             r"length=(?P<length>\d+), "
             r"pos=(?P<pos>\d+), "
