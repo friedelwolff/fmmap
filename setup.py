@@ -11,7 +11,7 @@ except ImportError:
 
 
 ext = '.pyx' if USE_CYTHON else '.c'
-extensions = [Extension("fmmap", ["src/fmmap"+ext])]
+extensions = [Extension("fmmap", ["src/fmmap"+ext], include_dirs=["src"])]
 
 if USE_CYTHON:
     from Cython.Build import cythonize
