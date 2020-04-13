@@ -19,6 +19,22 @@ cdef extern from *:
                  const void *needle, size_t needlelen) nogil
 
 
+# Some of the constants for madvise(2) are not guaranteed to be available.
+# Apart from kernel version, it might be configured out, and simply not defined
+# in the headers. While Cython lacks a #ifndef equivalent, we have to define a
+# few things in a header file so that the names are defined so that the
+# generated C file will compile.
+cdef extern from "constants.h":
+    # Linux
+    enum: HWPOISON
+    enum: MERGEABLE
+    enum: SOFT_OFFLINE
+    enum: HUGEPAGE
+    enum: DUMP
+    enum: FREE
+    enum: ONFORK
+
+
 _transform_flush_return_value = lambda value: value
 
 
@@ -58,6 +74,36 @@ if version_info < (3, 8):
     MADV_SEQUENTIAL = mman.MADV_SEQUENTIAL
     MADV_WILLNEED = mman.MADV_WILLNEED
     MADV_DONTNEED = mman.MADV_DONTNEED
+
+    IF UNAME_SYSNAME == "Linux":
+
+        from platform import uname
+
+        kernel = tuple(int(x) for x in uname()[2].split('-')[0].split('.'))
+        if kernel >= (2, 6, 16):
+            MADV_REMOVE = mman.MADV_REMOVE
+            MADV_DONTFORK = mman.MADV_DONTFORK
+            MADV_DOFORK = mman.MADV_DOFORK
+        if kernel >= (2, 6, 32):
+            if HWPOISON:
+                MADV_HWPOISON = mman.MADV_HWPOISON
+            if MERGEABLE:
+                MADV_MERGEABLE = mman.MADV_MERGEABLE
+                MADV_UNMERGEABLE = mman.MADV_UNMERGEABLE
+        if kernel >= (2, 6, 33) and SOFT_OFFLINE:
+            MADV_SOFT_OFFLINE = mman.MADV_SOFT_OFFLINE
+        if kernel >= (2, 6, 38) and HUGEPAGE:
+            MADV_HUGEPAGE = mman.MADV_HUGEPAGE
+            MADV_NOHUGEPAGE = mman.MADV_NOHUGEPAGE
+        if kernel >= (3, 4, 0) and DUMP:
+            MADV_DONTDUMP = mman.MADV_DONTDUMP
+            MADV_DODUMP = mman.MADV_DODUMP
+        if kernel >= (4, 5, 0) and FREE:
+            MADV_FREE = mman.MADV_FREE
+        if kernel >= (4, 14, 0) and ONFORK:
+            MADV_WIPEONFORK = mman.MADV_WIPEONFORK
+            MADV_KEEPONFORK = mman.MADV_KEEPONFORK
+        del kernel
 
 
 if version_info < (3, 7):

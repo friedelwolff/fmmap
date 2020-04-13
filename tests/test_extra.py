@@ -20,3 +20,4 @@ def test_needle_too_big():
 def test_clean_namespace():
     # We shouldn't soil the module namespace with our own extras
     assert getattr(mmap, "version_info", None) is None
+    assert getattr(mmap, "kernel", None) is None
