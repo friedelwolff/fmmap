@@ -164,7 +164,7 @@ class mmap(_mmap):
 
             buf_p = &buf[start]
             if mman.madvise(buf_p, length, option) != 0:
-                return -1
+                exc.PyErr_SetFromErrno(OSError)
 
         def flush(self, *args, **kwargs):
             value = super().flush(*args, **kwargs)
