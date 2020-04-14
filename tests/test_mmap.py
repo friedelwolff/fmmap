@@ -746,7 +746,7 @@ class MmapTests(unittest.TestCase):
             r"length=(?P<length>\d+), "
             r"pos=(?P<pos>\d+), "
             r"offset=(?P<offset>\d+)>")
-        closed_mmap_repr_pat = re.compile(r"<fmmap.mmap closed=True>")
+        closed_mmap_repr_pat = re.compile(r"<f?mmap.mmap closed=True>")
         mapsizes = (50, 100, 1000, 1000000, 10000000)
         offsets = tuple((mapsize // 2 // mmap.ALLOCATIONGRANULARITY)
                         * mmap.ALLOCATIONGRANULARITY for mapsize in mapsizes)
