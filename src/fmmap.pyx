@@ -10,6 +10,7 @@ version_info = sys.version_info
 
 
 import cython
+from cpython cimport exc
 
 cdef extern from *:
     void *memrchr(const void *haystack, const int c, size_t haystacklen) nogil
@@ -44,12 +45,10 @@ if version_info < (3, 8):
     # return value:
 
     IF UNAME_SYSNAME == "Windows":
-        from cpython.exc import PyErr_SetFromWindowsErr
-
         def _transform_flush_return_value(value):
             if value == 0:
                 # error
-                PyErr_SetFromWindowsErr(0)
+                exc.PyErr_SetFromWindowsErr(0)
             else:
                 # success
                 return None
