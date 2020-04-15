@@ -100,7 +100,6 @@ if version_info < (3, 7):
 _mmap = mmap
 
 class mmap(_mmap):
-    __name__ = "fmmap.mmap"
 
     if version_info < (3, 9):
 
