@@ -1,6 +1,7 @@
 include pyproject.toml
 
 include src/constants.h
+include src/constants.pxd
 include src/fmmap.pyx
 include .travis.yml
 include tox.ini
