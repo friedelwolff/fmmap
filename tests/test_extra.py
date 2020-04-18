@@ -1,3 +1,7 @@
+import sys
+
+import pytest
+
 import fmmap as mmap
 
 
@@ -21,3 +25,10 @@ def test_clean_namespace():
     # We shouldn't soil the module namespace with our own extras
     assert getattr(mmap, "version_info", None) is None
     assert getattr(mmap, "kernel", None) is None
+    assert getattr(mmap, "OS", None) is None
+
+
+@pytest.mark.skipif(not sys.platform.startswith("linux"), reason="Linux only")
+def test_freebsd_constants():
+    assert getattr(mmap, "MADV_DONTFORK") > 0
+    assert getattr(mmap, "MADV_NOSYNC") > 0
