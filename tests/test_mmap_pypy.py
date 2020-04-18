@@ -603,6 +603,7 @@ class TestAppTestMMap:
             f.write(b"\0" * halfsize)
             f.write(b"foo")
             f.write(b"\0" * (halfsize - 3))
+            f.flush()
             m = mmap(f.fileno(), 0)
             m.close()
 
