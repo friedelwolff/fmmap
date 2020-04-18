@@ -6,7 +6,11 @@
 
 from mmap import *
 import sys
-version_info = sys.version_info
+cdef int py_version = sys.hexversion
+DEF PY39 = 0x030901f0
+DEF PY38 = 0x030801f0
+DEF PY37 = 0x030701f0
+DEF PY36 = 0x030601f0
 
 
 import cython
@@ -27,7 +31,7 @@ cdef extern from *:
 _transform_flush_return_value = lambda value: value
 
 
-if version_info < (3, 8):
+if py_version < PY38:
     # We want to implement the return convention for flush() introduced in
     # Python 3.8. If we are running on an earlier version, let's massage the
     # return value:
@@ -93,7 +97,7 @@ if version_info < (3, 8):
         del kernel
 
 
-if version_info < (3, 7):
+if py_version < PY37:
     ACCESS_DEFAULT = 0
 
 
@@ -101,7 +105,7 @@ _mmap = mmap
 
 class mmap(_mmap):
 
-    if version_info < (3, 9):
+    if py_version < PY39:
 
         def __init__(self, *args, **kwargs):
             self._fileno = kwargs.get("fileno", args[0])
@@ -128,7 +132,7 @@ class mmap(_mmap):
                 f"offset={self._offset}>"
             )
 
-    if version_info < (3, 8):
+    if py_version < PY38:
 
         def madvise(self, option, start=0, length=None):
             cdef const unsigned char[:] buf = self
@@ -156,7 +160,7 @@ class mmap(_mmap):
             value = super().flush(*args, **kwargs)
             return _transform_flush_return_value(value)
 
-    if version_info < (3, 6):
+    if py_version < PY36:
 
         def __add__(self, value):
             raise TypeError()
@@ -303,6 +307,3 @@ class mmap(_mmap):
     #TODO:
     # - readline
     # - move?
-
-
-del version_info
