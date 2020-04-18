@@ -303,7 +303,3 @@ class mmap(_mmap):
         if c is NULL:
             return -1
         return c - buf_p + start
-
-    #TODO:
-    # - readline
-    # - move?
