@@ -65,6 +65,9 @@ if py_version < PY38:
     MADV_SEQUENTIAL = mman.MADV_SEQUENTIAL
     MADV_WILLNEED = mman.MADV_WILLNEED
     MADV_DONTNEED = mman.MADV_DONTNEED
+    # common in several Unix type systems;
+    if constants.FREE:
+        MADV_FREE = mman.MADV_FREE
 
     IF UNAME_SYSNAME == "Linux":
 
@@ -89,8 +92,6 @@ if py_version < PY38:
         if kernel >= (3, 4, 0) and constants.DUMP:
             MADV_DONTDUMP = mman.MADV_DONTDUMP
             MADV_DODUMP = mman.MADV_DODUMP
-        if kernel >= (4, 5, 0) and constants.FREE:
-            MADV_FREE = mman.MADV_FREE
         if kernel >= (4, 14, 0) and constants.ONFORK:
             MADV_WIPEONFORK = mman.MADV_WIPEONFORK
             MADV_KEEPONFORK = mman.MADV_KEEPONFORK

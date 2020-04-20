@@ -6,11 +6,13 @@
 
 cdef extern from "constants.h":
 
+    # common
+    enum: FREE
+
     # Linux
     enum: HWPOISON
     enum: MERGEABLE
     enum: SOFT_OFFLINE
     enum: HUGEPAGE
     enum: DUMP
-    enum: FREE
     enum: ONFORK
