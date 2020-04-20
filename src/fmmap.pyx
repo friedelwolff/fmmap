@@ -96,6 +96,7 @@ if py_version < PY38:
             MADV_WIPEONFORK = mman.MADV_WIPEONFORK
             MADV_KEEPONFORK = mman.MADV_KEEPONFORK
         del kernel
+        del uname
 
 
 if py_version < PY37:

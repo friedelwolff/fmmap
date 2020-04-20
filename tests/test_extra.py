@@ -26,6 +26,7 @@ def test_clean_namespace():
     assert getattr(mmap, "version_info", None) is None
     assert getattr(mmap, "kernel", None) is None
     assert getattr(mmap, "OS", None) is None
+    assert getattr(mmap, "uname", None) is None
 
 
 @pytest.mark.skipif(not sys.platform.startswith("linux"), reason="Linux only")
