@@ -6,6 +6,10 @@
 
 from mmap import *
 import sys
+
+
+cdef str platform = <str>sys.platform
+
 cdef int py_version = sys.hexversion
 DEF PY39 = 0x030901f0
 DEF PY38 = 0x030801f0
