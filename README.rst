@@ -53,6 +53,9 @@ built-in module might be smaller.
 
     pip install --upgrade fmmap
 
+The code of fmmap currently assumes that your platform has an ``madvise(2)``
+implementation if it isn't Windows.
+
 
 Credits and Resources
 ---------------------

@@ -56,6 +56,8 @@ if py_version < PY38:
                 # errors on Python < 3.8
                 pass
 
+
+if py_version < PY38 and not platform.startswith("windows"):
     # Constants needed for madvise
 
     from posix cimport mman
@@ -134,7 +136,7 @@ class mmap(_mmap):
                 f"offset={self._offset}>"
             )
 
-    if py_version < PY38:
+    if py_version < PY38 and not platform.startswith("windows"):
 
         def madvise(self, option, start=0, length=None):
             cdef const unsigned char[:] buf = self
@@ -157,6 +159,8 @@ class mmap(_mmap):
             buf_p = &buf[start]
             if mman.madvise(buf_p, length, option) != 0:
                 exc.PyErr_SetFromErrno(OSError)
+
+    if py_version < PY38:
 
         def flush(self, *args, **kwargs):
             value = super().flush(*args, **kwargs)
