@@ -30,6 +30,6 @@ def test_clean_namespace():
 
 
 @pytest.mark.skipif(not sys.platform.startswith("linux"), reason="Linux only")
-def test_freebsd_constants():
+def test_linux_constants():
     assert getattr(mmap, "MADV_DONTFORK") > 0
-    assert getattr(mmap, "MADV_NOSYNC") > 0
+    assert getattr(mmap, "MADV_REMOVE") > 0
