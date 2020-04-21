@@ -9,6 +9,14 @@ as a backport to older Python versions -- consult the documentation about any
 changes to the mmap API in Python. You should be able to shadow the builtin
 module and forget about it.
 
+Install on the command line:
+
+.. code:: shell
+
+    pip install --upgrade fmmap
+
+Import in Python under the name ``mmap``:
+
 .. code:: python
 
     import fmmap as mmap
@@ -36,8 +44,8 @@ older versions, notably:
 - ``madvise()`` is implemented and most of the ``MADV_...`` constants are exposed.
 
 
-Installation and usage
-----------------------
+Requirements and Assumptions
+----------------------------
 
 The following requirements are supported and tested:
 
@@ -49,10 +57,6 @@ functions in your C library. Recent versions of glibc is known to be very good.
 Other C libraries are not really tested, and the performance advantage over the
 built-in module might be smaller.
 
-.. code:: shell
-
-    pip install --upgrade fmmap
-
 The code of fmmap currently assumes that your platform has an ``madvise(2)``
 implementation if it isn't Windows.
 
@@ -61,7 +65,7 @@ Credits and Resources
 ---------------------
 
 The code and tests in this project are based on the standard library's `mmap`_
-module. Additional tests from the pypy project is also duplicated here that
+module. Additional tests from the pypy project are also duplicated here which
 helped to identify a few bugs. Most functionality is just inherrited from the
 current runtime. The rest is implemented in optimized Cython code.
 
