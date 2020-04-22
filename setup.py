@@ -27,16 +27,15 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='fmmap',
-    version='0.5.0',
+    version='1.0.0',
     description='A fast reimplementation of mmap',
     long_description=long_description,
     author='Friedel Wolff',
     author_email='friedel@translate.org.za',
 
     # For a list of valid classifiers, see https://pypi.org/classifiers/
-    classifiers=[  # Optional
-        #   5 - Production/Stable
-        'Development Status :: 4 - Beta',
+    classifiers=[
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)',
         'Programming Language :: Python :: 3.4',
