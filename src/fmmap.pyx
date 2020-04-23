@@ -232,7 +232,7 @@ class mmap(_mmap):
         cdef int needle_len = len(needle)
         cdef void *c
         cdef void *buf_p
-        cdef void *needle_p
+        cdef unsigned char *needle_p
 
         # negative slicing and bounds checking
         if start < 0:
