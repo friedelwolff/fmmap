@@ -1,5 +1,7 @@
 #include <sys/mman.h>
 
+#define MEMMEM 1
+
 
 // Linux:
 

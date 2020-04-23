@@ -6,6 +6,12 @@
 
 cdef extern from "constants.h":
 
+    # Assume memmem(3) is available:
+    enum: MEMMEM
+
+
+    # constants related to madvise(2):
+
     # common
     enum: FREE
 

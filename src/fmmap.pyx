@@ -24,12 +24,30 @@ cimport constants
 
 
 cdef extern from *:
+    void *memchr(const void *haystack, const int c, size_t haystacklen) nogil
     void *memrchr(const void *haystack, const int c, size_t haystacklen) nogil
     int memcmp(const void *s1, const void *s2, size_t n) nogil
     #GNU extension to glibc
     void *memmem(const void *haystack, size_t haystacklen,
                  const void *needle, size_t needlelen) nogil
 
+
+cdef void *my_memmem(
+        const void *buf_p,
+        size_t haystack_len,
+        const unsigned char *needle,  # instead of "void *" to avoid casts
+        size_t needle_len,
+    ) nogil:
+    cdef void *c
+    i = haystack_len - needle_len + 1
+    c = memchr(buf_p, needle[0], i)
+    while c:
+        if memcmp(c, needle, needle_len) == 0:
+            return c
+        i = haystack_len - (c - buf_p) - needle_len
+        c = memchr(c + 1, needle[0], i)
+
+    return NULL
 
 
 _transform_flush_return_value = lambda value: value
@@ -241,7 +259,10 @@ class mmap(_mmap):
         with nogil:
             buf_p = &buf[start]
             needle_p = &needle[0]
-            c = memmem(buf_p, end-start, needle_p, needle_len)
+            if constants.MEMMEM:
+                c = memmem(buf_p, end-start, needle_p, needle_len)
+            else:
+                c = my_memmem(buf_p, end-start, needle_p, needle_len)
 
         if c is NULL:
             return -1
