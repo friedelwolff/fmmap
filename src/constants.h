@@ -1,7 +1,7 @@
 #ifndef _WIN32
     #include <sys/mman.h>
     #define MEMMEM 1
-#elif
+#else
     #define MEMMEM 0
 #endif
 
