@@ -1,6 +1,11 @@
-#include <sys/mman.h>
+#ifndef _WIN32
+    #include <sys/mman.h>
+    #define MEMMEM 1
+#elif
+    #define MEMMEM 0
+#endif
 
-#define MEMMEM 1
+
 
 
 // Linux:
