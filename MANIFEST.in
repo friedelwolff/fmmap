@@ -5,6 +5,7 @@ include src/constants.pxd
 include src/fmmap.pyx
 include .travis.yml
 include tox.ini
+recursive-include benchmarks *.py
 recursive-include tests *.py
 
 # Include the README
