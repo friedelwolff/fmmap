@@ -267,6 +267,8 @@ class mmap(_mmap):
             return 0
         if buf_len == 0 or needle_len > buf_len:
             return -1
+        if end - start < needle_len:
+            return -1
 
         with nogil:
             buf_p = &buf[start]
