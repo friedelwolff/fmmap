@@ -60,3 +60,35 @@
     #define MADV_WIPEONFORK 0
     #define MADV_KEEPONFORK 0
 #endif
+
+
+// FreeBSD
+
+#ifdef MADV_NOSYNC
+    #define NOSYNC 1
+#else
+    #define NOSYNC 0
+    #define MADV_NOSYNC 0
+#endif
+
+#ifdef MADV_AUTOSYNC
+    #define AUTOSYNC 1
+#else
+    #define AUTOSYNC 0
+    #define MADV_AUTOSYNC 0
+#endif
+
+#ifdef MADV_CORE
+    #define CORE 1
+#else
+    #define CORE 0
+    #define MADV_CORE 0
+    #define MADV_NOCORE 0
+#endif
+
+#ifdef MADV_PROTECT
+    #define PROTECT 1
+#else
+    #define PROTECT 0
+    #define MADV_PROTECT 0
+#endif

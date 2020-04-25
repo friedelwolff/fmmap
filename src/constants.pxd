@@ -22,3 +22,22 @@ cdef extern from "constants.h":
     enum: HUGEPAGE
     enum: DUMP
     enum: ONFORK
+
+    # In the following cases, the MADV_* constants are not all defined in
+    # Cython's mman.pxd, so we add them in addition to our feature flags.
+
+    # FreeBSD
+    enum: NOSYNC
+    enum: MADV_NOSYNC
+
+    enum: AUTOSYNC
+    enum: MADV_AUTOSYNC
+
+    enum: NOCORE
+    enum: MADV_NOCORE
+
+    enum: CORE
+    enum: MADV_CORE
+
+    enum: PROTECT
+    enum: MADV_PROTECT

@@ -122,6 +122,17 @@ if py_version < PY38 and not platform.startswith("windows"):
         del kernel
         del uname
 
+    ELSE:
+        # FreeBSD:
+        if constants.NOSYNC:
+            MADV_NOSYNC = constants.MADV_NOSYNC
+            MADV_AUTOSYNC = constants.MADV_AUTOSYNC
+        if constants.CORE:
+            MADV_NOCORE = constants.MADV_NOCORE
+            MADV_CORE = constants.MADV_CORE
+        if constants.PROTECT:
+            MADV_PROTECT = constants.MADV_PROTECT
+
 
 if py_version < PY37:
     ACCESS_DEFAULT = 0
