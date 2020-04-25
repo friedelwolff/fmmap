@@ -1,14 +1,21 @@
-name: Python package
+name: fmmap
 
 on: [push]
 
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
+        os: ubuntu-18.04
         python: [3.5, 3.6, 3.7, 3.8]
+        experimental: false
+        include:
+            os: macos-latest
+            python: [3.5, 3.6, 3.7, 3.8]
+            experimental: true
 
     steps:
       - uses: actions/checkout@v2
