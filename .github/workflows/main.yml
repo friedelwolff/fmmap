@@ -13,8 +13,8 @@ jobs:
         python: [3.5, 3.6, 3.7, 3.8]
         experimental: [false]
         include:
-            os: macos-latest
-            python: [3.5, 3.6, 3.7, 3.8]
+          - os: macos-latest
+            python: 3.8
             experimental: true
 
     steps:
