@@ -24,21 +24,22 @@ cimport constants
 
 
 cdef extern from *:
-    void *memchr(const void *haystack, const int c, size_t haystacklen) nogil
-    void *memrchr(const void *haystack, const int c, size_t haystacklen) nogil
+    unsigned char *memchr(const void *haystack, const int c, size_t haystacklen) nogil
+    unsigned char *memrchr(const void *haystack, const int c, size_t haystacklen) nogil
     int memcmp(const void *s1, const void *s2, size_t n) nogil
     #GNU extension to glibc
-    void *memmem(const void *haystack, size_t haystacklen,
+    unsigned char *memmem(const void *haystack, size_t haystacklen,
                  const void *needle, size_t needlelen) nogil
 
 
-cdef void *my_memmem(
-        const void *buf_p,
+
+cdef unsigned char *my_memmem(
+        const unsigned char *buf_p,
         size_t haystack_len,
-        const unsigned char *needle,  # instead of "void *" to avoid casts
+        const unsigned char *needle,
         size_t needle_len,
     ) nogil:
-    cdef void *c
+    cdef unsigned char *c
     i = haystack_len - needle_len + 1
     c = memchr(buf_p, needle[0], i)
     while c:
@@ -241,8 +242,8 @@ class mmap(_mmap):
         cdef const unsigned char[:] needle = r
         cdef int buf_len = len(buf)
         cdef int needle_len = len(needle)
-        cdef void *c
-        cdef void *buf_p
+        cdef unsigned char *c
+        cdef unsigned char *buf_p
         cdef unsigned char *needle_p
 
         # negative slicing and bounds checking
@@ -293,9 +294,9 @@ class mmap(_mmap):
         cdef const unsigned char[:] needle = r
         cdef int buf_len = len(buf)
         cdef int needle_len = len(needle)
-        cdef void *c = NULL
-        cdef void *buf_p
-        cdef void *needle_p
+        cdef unsigned char *c = NULL
+        cdef unsigned char *buf_p
+        cdef unsigned char *needle_p
         cdef ssize_t i
 
         # negative slicing and bounds checking
