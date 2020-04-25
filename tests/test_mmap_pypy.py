@@ -25,7 +25,10 @@ class TestAppTestMMap:
         cls.tmpname = "./tmp/mmap-"
 
     def teardown_class(cls):
-        shutil.rmtree("./tmp")
+        try:
+            shutil.rmtree("./tmp")
+        except FileNotFoundError:
+            pass
 
     def setup_method(self, meth):
         if getattr(meth, 'is_large', False):
