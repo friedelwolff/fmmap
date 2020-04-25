@@ -19,14 +19,12 @@ DEF PY36 = 0x030601f0
 
 import cython
 from cpython cimport exc
+from libc cimport string
 
 cimport constants
 
 
 cdef extern from *:
-    unsigned char *memchr(const void *haystack, const int c, size_t haystacklen) nogil
-    unsigned char *memrchr(const void *haystack, const int c, size_t haystacklen) nogil
-    int memcmp(const void *s1, const void *s2, size_t n) nogil
     #GNU extension to glibc
     unsigned char *memmem(const void *haystack, size_t haystacklen,
                  const void *needle, size_t needlelen) nogil
@@ -41,12 +39,12 @@ cdef unsigned char *my_memmem(
     ) nogil:
     cdef unsigned char *c
     i = haystack_len - needle_len + 1
-    c = memchr(buf_p, needle[0], i)
+    c = <unsigned char *>string.memchr(buf_p, needle[0], i)
     while c:
-        if memcmp(c, needle, needle_len) == 0:
+        if string.memcmp(c, needle, needle_len) == 0:
             return c
         i = haystack_len - (c - buf_p) - needle_len
-        c = memchr(c + 1, needle[0], i)
+        c = <unsigned char *>string.memchr(c + 1, needle[0], i)
 
     return NULL
 
@@ -339,11 +337,11 @@ class mmap(_mmap):
             buf_p = &buf[start]
             needle_p = &needle[0]
             i = end - start - needle_len + 1
-            c = memrchr(buf_p, needle[0], i)
+            c = <unsigned char *>string.memrchr(buf_p, needle[0], i)
             while c:
-                if memcmp(c, needle_p, needle_len) == 0:
+                if string.memcmp(c, needle_p, needle_len) == 0:
                     break
-                c = memrchr(buf_p, needle[0], c - buf_p)
+                c = <unsigned char *>string.memrchr(buf_p, needle[0], c - buf_p)
 
         if c is NULL:
             return -1
