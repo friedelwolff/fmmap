@@ -1,3 +1,8 @@
+# From:
+# https://foss.heptapod.net/pypy/pypy/raw/branch/py3.6/pypy/module/mmap/test/test_mmap.py
+# Web view:
+# https://foss.heptapod.net/pypy/pypy/blob/branch/py3.6/pypy/module/mmap/test/test_mmap.py
+
 from __future__ import with_statement
 #from rpython.tool.udir import udir
 import os, sys, py
