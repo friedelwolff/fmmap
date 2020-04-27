@@ -24,11 +24,10 @@ from libc cimport string
 cimport constants
 
 
-cdef extern from *:
+cdef extern from "<string.h>":
     #GNU extension to glibc
     unsigned char *memmem(const void *haystack, size_t haystacklen,
                  const void *needle, size_t needlelen) nogil
-
 
 
 cdef unsigned char *my_memmem(
