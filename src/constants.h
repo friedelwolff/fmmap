@@ -2,7 +2,7 @@
     #include <sys/mman.h>
     #define MEMMEM 1
 
-    #if (__FreeBSD_version >= 1200000)
+    #if (__FreeBSD_version < 1200000)
         // libc's builtin is mostly slower than our local one
         #define MEMMEM 0
     #endif
