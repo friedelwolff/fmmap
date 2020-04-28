@@ -44,6 +44,7 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Operating System :: POSIX :: Linux',
+        'Operating System :: POSIX :: BSD :: FreeBSD',
     ],
 
     # Note that this is a string of words separated by whitespace, not a list.

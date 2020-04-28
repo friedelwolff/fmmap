@@ -51,7 +51,8 @@ The following requirements are supported and tested:
 
 - Python versions: 3.4, 3.5, 3.6, 3.7, 3.8.
 - Interpreters: CPython.
-- Operating systems: Linux, although most Unix type operating systems should work fine.
+- Operating systems: Linux, FreeBSD.
+  Most Unix type operating systems should work fine.
 
 The speed improvements depend on the quality of implementation of certain
 functions in your C library. Recent versions of glibc is known to be very good.
