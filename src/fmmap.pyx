@@ -171,7 +171,7 @@ class mmap(_mmap):
 
         def madvise(self, option, start=0, length=None):
             cdef const unsigned char[:] buf = self
-            cdef int buf_len = len(buf)
+            cdef ssize_t buf_len = len(buf)
             cdef void *buf_p
 
             if length is None:
@@ -234,11 +234,11 @@ class mmap(_mmap):
         return self._find(sub, start, end)
 
     @cython.boundscheck(False)
-    def _find(object self, r, int start, int end):
+    def _find(object self, r, ssize_t start, ssize_t end):
         cdef const unsigned char[:] buf = self
         cdef const unsigned char[:] needle = r
-        cdef int buf_len = len(buf)
-        cdef int needle_len = len(needle)
+        cdef ssize_t buf_len = len(buf)
+        cdef ssize_t needle_len = len(needle)
         cdef unsigned char *c
         cdef unsigned char *buf_p
         cdef unsigned char *needle_p
@@ -288,11 +288,11 @@ class mmap(_mmap):
         return self._rfind(sub, start, end)
 
     @cython.boundscheck(False)
-    def _rfind(object self, r, int start, int end):
+    def _rfind(object self, r, ssize_t start, ssize_t end):
         cdef const unsigned char[:] buf = self
         cdef const unsigned char[:] needle = r
-        cdef int buf_len = len(buf)
-        cdef int needle_len = len(needle)
+        cdef ssize_t buf_len = len(buf)
+        cdef ssize_t needle_len = len(needle)
         cdef unsigned char *c = NULL
         cdef unsigned char *buf_p
         cdef unsigned char *needle_p
