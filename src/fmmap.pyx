@@ -172,7 +172,7 @@ class mmap(_mmap):
         def madvise(self, option, start=0, length=None):
             cdef const unsigned char[:] buf = self
             cdef ssize_t buf_len = len(buf)
-            cdef void *buf_p
+            cdef unsigned char *buf_p
 
             if length is None:
                 length = buf_len
