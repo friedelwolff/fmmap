@@ -27,7 +27,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='fmmap',
-    version='1.0.0',
+    version='1.1.0',
     description='A fast reimplementation of mmap',
     long_description=long_description,
     author='Friedel Wolff',
