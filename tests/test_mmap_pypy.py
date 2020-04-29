@@ -30,15 +30,6 @@ class TestAppTestMMap:
         except FileNotFoundError:
             pass
 
-    def setup_method(self, meth):
-        if getattr(meth, 'is_large', False):
-            if sys.maxsize < 2**32 and not self.runappdirect:
-                # this fails because it uses ll2ctypes to call the posix
-                # functions like 'open' and 'lseek', whereas a real compiled
-                # C program would macro-define them to their longlong versions
-                py.test.skip("emulation of files can't use "
-                             "larger-than-long offsets")
-
     def test_page_size(self):
         import mmap
         assert mmap.PAGESIZE > 0
