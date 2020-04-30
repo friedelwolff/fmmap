@@ -725,8 +725,8 @@ class TestAppTestMMap:
 
         # try resizing map
         if not(
-            "darwin" in sys.platform and
-            "freebsd" in sys.platform and
+            "darwin" in sys.platform or
+            "freebsd" in sys.platform or
             "openbsd" in sys.platform):
             m.resize(512)
 
