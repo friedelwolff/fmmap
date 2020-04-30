@@ -33,7 +33,7 @@ Summary of the project status:
 
 The ``find()`` and ``rfind()`` functions in fmmap should be faster than the
 version in the standard library. These two functions also release the global
-interpreter lock (GIL) while searching, which might provide a some benefit if
+interpreter lock (GIL) while searching, which might provide some benefit if
 you have multithreaded code.
 
 A number of features, bug fixes and API changes introduced in the standard
