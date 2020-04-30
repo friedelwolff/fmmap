@@ -132,6 +132,14 @@ if py_version < PY38 and not platform.startswith("windows"):
             MADV_PROTECT = constants.MADV_PROTECT
 
 
+# Some madvise constants aren't in the standard library (in any Python version
+# so far), so we expose them here unconditionally:
+
+# OpenBSD:
+if constants.SPACEAVAIL:
+    MADV_SPACEAVAIL = constants.MADV_SPACEAVAIL
+
+
 if py_version < PY37:
     ACCESS_DEFAULT = 0
 

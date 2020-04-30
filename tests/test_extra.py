@@ -39,3 +39,9 @@ def test_linux_constants():
 def test_freebsd_constants():
     assert getattr(mmap, "MADV_FREE") > 0
     assert getattr(mmap, "MADV_NOSYNC") > 0
+
+
+@pytest.mark.skipif(not sys.platform.startswith("openbsd"), reason="OpenBSD only")
+def test_openbsd_constants():
+    assert getattr(mmap, "MADV_FREE") > 0
+    assert getattr(mmap, "MADV_SPACEAVAIL") > 0

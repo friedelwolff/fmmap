@@ -369,8 +369,10 @@ class TestAppTestMMap:
 
     def test_resize(self):
         import sys
-        if ("darwin" in sys.platform) or ("freebsd" in sys.platform):
-            skip("resize does not work under OSX or FreeBSD")
+        if ("darwin" in sys.platform or
+            "freebsd" in sys.platform or
+            "openbsd" in sys.platform):
+            skip("resize does not work under OSX, FreeBSD or OpenBSD")
 
         import mmap
         import os
@@ -393,8 +395,10 @@ class TestAppTestMMap:
 
     def test_resize_bsd(self):
         import sys
-        if ("darwin" not in sys.platform) and ("freebsd" not in sys.platform):
-            skip("resize works under not OSX or FreeBSD")
+        if ("darwin" not in sys.platform and
+            "freebsd" not in sys.platform and
+            "openbsd" not in sys.platform):
+            skip("resize works under on platforms besides OSX, FreeBSD and OpenBSD")
 
         import mmap
         import os
@@ -720,7 +724,10 @@ class TestAppTestMMap:
         raises(ValueError, m.seek, -len(m) - 1, 2)
 
         # try resizing map
-        if not (("darwin" in sys.platform) or ("freebsd" in sys.platform)):
+        if not(
+            "darwin" not in sys.platform and
+            "freebsd" not in sys.platform and
+            "openbsd" not in sys.platform):
             m.resize(512)
 
             assert len(m) == 512

@@ -41,3 +41,7 @@ cdef extern from "constants.h":
 
     enum: PROTECT
     enum: MADV_PROTECT
+
+    # OpenBSD
+    enum: SPACEAVAIL
+    enum: MADV_SPACEAVAIL

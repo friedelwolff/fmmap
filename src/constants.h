@@ -98,3 +98,12 @@
     #define PROTECT 0
     #define MADV_PROTECT 0
 #endif
+
+
+// OpenBSD
+#ifdef MADV_SPACEAVAIL
+    #define SPACEAVAIL 1
+#else
+    #define SPACEAVAIL 0
+    #define MADV_SPACEAVAIL 0
+#endif
