@@ -46,6 +46,7 @@ setup(
         'Operating System :: POSIX :: Linux',
         'Operating System :: POSIX :: BSD :: FreeBSD',
         'Operating System :: POSIX :: BSD :: NetBSD',
+        'Operating System :: POSIX :: BSD :: OpenBSD',
     ],
 
     # Note that this is a string of words separated by whitespace, not a list.
