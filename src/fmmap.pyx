@@ -154,6 +154,16 @@ if py_version < PY38 and not platform.startswith("windows"):
 if constants.SPACEAVAIL:
     MADV_SPACEAVAIL = constants.MADV_SPACEAVAIL
 
+# Solaris:
+if constants.ACCESS_DEFAULT:
+    MADV_ACCESS_DEFAULT = constants.MADV_ACCESS_DEFAULT
+if constants.ACCESS_LWP:
+    MADV_ACCESS_LWP = constants.MADV_ACCESS_LWP
+if constants.ACCESS_MANY:
+    MADV_ACCESS_MANY = constants.MADV_ACCESS_MANY
+if constants.ACCESS_MANY_PSET:
+    MADV_ACCESS_MANY_PSET = constants.MADV_ACCESS_MANY_PSET
+
 
 if py_version < PY37:
     ACCESS_DEFAULT = 0

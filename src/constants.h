@@ -120,3 +120,34 @@
     #define SPACEAVAIL 0
     #define MADV_SPACEAVAIL 0
 #endif
+
+
+// Solaris
+
+#ifdef MADV_ACCESS_DEFAULT
+    #define ACCESS_DEFAULT 1
+#else
+    #define ACCESS_DEFAULT 0
+    #define MADV_ACCESS_DEFAULT 0
+#endif
+
+#ifdef MADV_ACCESS_LWP
+    #define ACCESS_LWP 1
+#else
+    #define ACCESS_LWP 0
+    #define MADV_ACCESS_LWP 0
+#endif
+
+#ifdef MADV_ACCESS_MANY
+    #define ACCESS_MANY 1
+#else
+    #define ACCESS_MANY 0
+    #define MADV_ACCESS_MANY 0
+#endif
+
+#ifdef MADV_ACCESS_MANY_PSET
+    #define ACCESS_MANY_PSET 1
+#else
+    #define ACCESS_MANY_PSET 0
+    #define MADV_ACCESS_MANY_PSET 0
+#endif

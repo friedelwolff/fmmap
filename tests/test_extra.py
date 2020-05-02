@@ -45,3 +45,9 @@ def test_freebsd_constants():
 def test_openbsd_constants():
     assert getattr(mmap, "MADV_FREE") > 0
     assert getattr(mmap, "MADV_SPACEAVAIL") > 0
+
+
+@pytest.mark.skipif(not sys.platform.startswith("sunos"), reason="SunOS/Solaris only")
+def test_openbsd_constants():
+    assert getattr(mmap, "MADV_FREE") > 0
+    assert getattr(mmap, "MADV_ACCESS_LWP") > 0
