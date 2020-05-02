@@ -15,6 +15,13 @@ from pytest import raises, skip
 import fmmap
 sys.modules["mmap"] = fmmap
 
+PLATFORMS_WITHOUT_MREMAP = (
+    "darwin",
+    "freebsd",
+    "openbsd",
+    "sunos",
+)
+
 class TestAppTestMMap:
     spaceconfig = dict(usemodules=('mmap',))
 
@@ -369,10 +376,9 @@ class TestAppTestMMap:
 
     def test_resize(self):
         import sys
-        if ("darwin" in sys.platform or
-            "freebsd" in sys.platform or
-            "openbsd" in sys.platform):
-            skip("resize does not work under OSX, FreeBSD or OpenBSD")
+        for platform in PLATFORMS_WITHOUT_MREMAP:
+            if platform in sys.platform:
+                skip("resize does not work under some platforms")
 
         import mmap
         import os
@@ -395,10 +401,11 @@ class TestAppTestMMap:
 
     def test_resize_bsd(self):
         import sys
-        if ("darwin" not in sys.platform and
-            "freebsd" not in sys.platform and
-            "openbsd" not in sys.platform):
-            skip("resize works under on platforms besides OSX, FreeBSD and OpenBSD")
+        for platform in PLATFORMS_WITHOUT_MREMAP:
+            if platform in sys.platform:
+                break
+        else:
+            skip("test different resize on some platforms")
 
         import mmap
         import os
@@ -724,10 +731,10 @@ class TestAppTestMMap:
         raises(ValueError, m.seek, -len(m) - 1, 2)
 
         # try resizing map
-        if not(
-            "darwin" in sys.platform or
-            "freebsd" in sys.platform or
-            "openbsd" in sys.platform):
+        for platform in PLATFORMS_WITHOUT_MREMAP:
+            if platform in sys.platform:
+                break
+        else:
             m.resize(512)
 
             assert len(m) == 512
