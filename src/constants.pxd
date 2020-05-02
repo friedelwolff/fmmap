@@ -6,8 +6,9 @@
 
 cdef extern from "constants.h":
 
-    # Assume memmem(3) is available:
+    # feature availability flags:
     enum: MEMMEM
+    enum: MEMRCHR
 
 
     # constants related to madvise(2):

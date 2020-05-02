@@ -1,6 +1,7 @@
 #ifndef _WIN32
     #include <sys/mman.h>
     #define MEMMEM 1
+    #define MEMRCHR 1
 
     #if (__FreeBSD_version < 1200000)
         // libc's builtin is mostly slower than our local one
@@ -9,6 +10,14 @@
 
 #else
     #define MEMMEM 0
+    #define MEMRCHR 0
+#endif
+
+
+#if MEMRCHR == 0
+    void *
+    memrchr(const void *b, int c, size_t len)
+    {}
 #endif
 
 

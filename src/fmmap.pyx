@@ -48,6 +48,21 @@ cdef unsigned char *my_memmem(
     return NULL
 
 
+cdef unsigned char *my_memrchr(
+        unsigned char *b,
+        int c,
+        size_t n,
+    ) nogil:
+    b += n - 1
+    while n:
+        if <unsigned char>c == b[0]:
+            return b
+        b -= 1
+        n -= 1
+
+    return NULL
+
+
 _transform_flush_return_value = lambda value: value
 
 
@@ -344,11 +359,19 @@ class mmap(_mmap):
             buf_p = &buf[start]
             needle_p = &needle[0]
             i = end - start - needle_len + 1
-            c = <unsigned char *>string.memrchr(buf_p, needle[0], i)
-            while c:
-                if string.memcmp(c, needle_p, needle_len) == 0:
-                    break
-                c = <unsigned char *>string.memrchr(buf_p, needle[0], c - buf_p)
+            if constants.MEMRCHR:
+                c = <unsigned char *>string.memrchr(buf_p, needle[0], i)
+                while c:
+                    if string.memcmp(c, needle_p, needle_len) == 0:
+                        break
+                    c = <unsigned char *>string.memrchr(buf_p, needle[0], c - buf_p)
+
+            else:
+                c = my_memrchr(buf_p, needle[0], i)
+                while c:
+                    if string.memcmp(c, needle_p, needle_len) == 0:
+                        break
+                    c = my_memrchr(buf_p, needle[0], c - buf_p)
 
         if c is NULL:
             return -1
