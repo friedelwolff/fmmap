@@ -8,6 +8,10 @@
         #define MEMMEM 0
     #endif
 
+    #if defined(sun)
+        #define MEMRCHR 0
+    #endif
+
 #else
     #define MEMMEM 0
     #define MEMRCHR 0
