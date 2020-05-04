@@ -51,7 +51,7 @@ The following requirements are supported and tested:
 
 - Python versions: 3.4, 3.5, 3.6, 3.7, 3.8.
 - Interpreters: CPython.
-- Operating systems: Linux, FreeBSD, NetBSD, OpenBSD.
+- Operating systems: Linux, FreeBSD, NetBSD, OpenBSD, OpenIndiana (illumos/Solaris).
   Most Unix type operating systems should work fine.
 
 The speed improvements depend on the quality of implementation of certain
