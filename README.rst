@@ -23,9 +23,9 @@ Import in Python under the name ``mmap``:
 
 Memory mapping is a technique of providing access to a file by mapping it into
 the virtual address space of the process and letting the operating system
-handle the input and output instead of explicitely reading from or writing to
+handle the input and output instead of explicitly reading from or writing to
 the file. It can provide better performance over normal file access in some
-cases. The builtin mmap mobule in Python exposes this functionality, but some
+cases. The builtin mmap module in Python exposes this functionality, but some
 of the implementation is not as fast as possible.
 
 Summary of the project status:
@@ -68,7 +68,7 @@ Credits and Resources
 
 The code and tests in this project are based on the standard library's `mmap`_
 module. Additional tests from the pypy project are also duplicated here which
-helped to identify a few bugs. Most functionality is just inherrited from the
+helped to identify a few bugs. Most functionality is just inherited from the
 current runtime. The rest is implemented in optimized Cython code.
 
 .. _mmap: https://docs.python.org/3/library/mmap.html
