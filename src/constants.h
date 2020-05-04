@@ -122,7 +122,7 @@
 #endif
 
 
-// Solaris
+// Solaris and derivates
 
 #ifdef MADV_ACCESS_DEFAULT
     #define ACCESS_DEFAULT 1
@@ -150,4 +150,11 @@
 #else
     #define ACCESS_MANY_PSET 0
     #define MADV_ACCESS_MANY_PSET 0
+#endif
+
+#ifdef MADV_PURGE
+    #define PURGE 1
+#else
+    #define PURGE 0
+    #define MADV_PURGE 0
 #endif

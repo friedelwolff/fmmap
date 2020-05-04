@@ -148,13 +148,13 @@ if py_version < PY38 and not platform.startswith("windows"):
 
 
 # Some madvise constants aren't in the standard library (in any Python version
-# so far), so we expose them here unconditionally:
+# so far), so we expose them here unconditionally if they are in <sys/mman.h>.
 
 # OpenBSD:
 if constants.SPACEAVAIL:
     MADV_SPACEAVAIL = constants.MADV_SPACEAVAIL
 
-# Solaris:
+# Solaris/illumos/OpenIndiana/SmartOs:
 if constants.ACCESS_DEFAULT:
     MADV_ACCESS_DEFAULT = constants.MADV_ACCESS_DEFAULT
 if constants.ACCESS_LWP:
@@ -163,6 +163,9 @@ if constants.ACCESS_MANY:
     MADV_ACCESS_MANY = constants.MADV_ACCESS_MANY
 if constants.ACCESS_MANY_PSET:
     MADV_ACCESS_MANY_PSET = constants.MADV_ACCESS_MANY_PSET
+#illumos/OpenIndiana/SmartOS:
+if constants.PURGE:
+    MADV_PURGE = constants.MADV_PURGE
 
 
 if py_version < PY37:

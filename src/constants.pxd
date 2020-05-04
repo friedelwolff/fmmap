@@ -52,7 +52,9 @@ cdef extern from "constants.h":
     enum: ACCESS_LWP
     enum: ACCESS_MANY
     enum: ACCESS_MANY_PSET
+    enum: PURGE
     enum: MADV_ACCESS_DEFAULT
     enum: MADV_ACCESS_LWP
     enum: MADV_ACCESS_MANY
     enum: MADV_ACCESS_MANY_PSET
+    enum: MADV_PURGE
