@@ -30,6 +30,7 @@ cdef extern from "<string.h>":
                  const void *needle, size_t needlelen) nogil
 
 
+# See man memmem(3)
 cdef unsigned char *my_memmem(
         const unsigned char *buf_p,
         size_t haystack_len,
@@ -48,6 +49,7 @@ cdef unsigned char *my_memmem(
     return NULL
 
 
+# See man memchr(3)
 cdef unsigned char *my_memrchr(
         unsigned char *b,
         int c,

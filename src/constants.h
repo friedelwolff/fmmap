@@ -4,7 +4,7 @@
     #define MEMRCHR 1
 
     #if defined(__FreeBSD__) && (__FreeBSD_version < 1200000)
-        // libc's builtin is mostly slower than our local one
+        // memmem() on FreeBSD's libc is mostly slower than our local one
         #define MEMMEM 0
     #endif
 
@@ -19,6 +19,7 @@
 
 
 #if MEMRCHR == 0
+    // Just to keep the linker happy. We'll implement it with a different name.
     void *
     memrchr(const void *b, int c, size_t len)
     {}
