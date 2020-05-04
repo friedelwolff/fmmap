@@ -3,7 +3,7 @@
     #define MEMMEM 1
     #define MEMRCHR 1
 
-    #if (__FreeBSD_version < 1200000)
+    #if defined(__FreeBSD__) && (__FreeBSD_version < 1200000)
         // libc's builtin is mostly slower than our local one
         #define MEMMEM 0
     #endif
