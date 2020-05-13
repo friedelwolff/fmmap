@@ -51,13 +51,16 @@ The following requirements are supported and tested:
 
 - Python versions: 3.4, 3.5, 3.6, 3.7, 3.8.
 - Interpreters: CPython.
-- Operating systems: Linux, FreeBSD, NetBSD, OpenBSD, OpenIndiana (illumos/Solaris).
-  Most Unix type operating systems should work fine.
+- Operating systems:
+  - Linux
+  - BSD systems (FreeBSD, NetBSD, OpenBSD)
+  - SunOS/Solaris (illumos/OpenIndiana)
 
-The speed improvements depend on the quality of implementation of certain
-functions in your C library. Recent versions of glibc is known to be very good.
-Other C libraries are not really tested, and the performance advantage over the
-built-in module might be smaller.
+To implement the searching functionality, fmmap makes use of functions in the C
+library. The performance characteristics therefore are platform and version
+dependent. Recent versions of glibc is known to be very good. Some
+characteristics of your data can also influence performance. The performance of
+fmmap should be better than the built-in mmap module on in most cases
 
 The code of fmmap currently assumes that your platform has an ``madvise(2)``
 implementation and has the header file <sys/mman.h>.
