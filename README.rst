@@ -55,6 +55,7 @@ The following requirements are supported and tested:
   - Linux
   - BSD systems (FreeBSD, NetBSD, OpenBSD)
   - SunOS/Solaris (illumos/OpenIndiana)
+  - macOS
 
 To implement the searching functionality, fmmap makes use of functions in the C
 library. The performance characteristics therefore are platform and version

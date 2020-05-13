@@ -8,7 +8,7 @@
         #define MEMMEM 0
     #endif
 
-    #if defined(__sun__) || defined(__sun) || defined __MACH__
+    #if defined(__sun__) || defined(__sun) || defined(__MACH__)
         #define MEMRCHR 0
     #endif
 
