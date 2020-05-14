@@ -34,7 +34,7 @@ Summary of the project status:
 The ``find()`` and ``rfind()`` functions in fmmap should be faster than the
 version in the standard library. These two functions also release the global
 interpreter lock (GIL) while searching, which might provide some benefit if
-you have multithreaded code.
+you have multi-threaded code.
 
 A number of features, bug fixes and API changes introduced in the standard
 library between Python 3.5 - Python 3.9 are supported in fmmap when running on
@@ -52,6 +52,7 @@ The following requirements are supported and tested:
 - Python versions: 3.4, 3.5, 3.6, 3.7, 3.8.
 - Interpreters: CPython.
 - Operating systems:
+
   - Linux
   - BSD systems (FreeBSD, NetBSD, OpenBSD)
   - SunOS/Solaris (illumos/OpenIndiana)
@@ -61,7 +62,7 @@ To implement the searching functionality, fmmap makes use of functions in the C
 library. The performance characteristics therefore are platform and version
 dependent. Recent versions of glibc is known to be very good. Some
 characteristics of your data can also influence performance. The performance of
-fmmap should be better than the built-in mmap module on in most cases
+fmmap should be better than the built-in mmap module in most cases
 
 The code of fmmap currently assumes that your platform has an ``madvise(2)``
 implementation and has the header file <sys/mman.h>.
@@ -77,7 +78,7 @@ current runtime. The rest is implemented in optimized Cython code.
 
 .. _mmap: https://docs.python.org/3/library/mmap.html
 
-Further readding on Wikipedia:
+Further reading on Wikipedia:
 
 - `The mmap(2) system call <https://en.wikipedia.org/wiki/mmap>`__
 - `Memory-mapped file <https://en.wikipedia.org/wiki/Memory-mapped_file>`__
@@ -88,12 +89,14 @@ Contributing
 1. Clone this repository (``git clone ...``)
 2. Create a virtualenv
 3. Install package dependencies: ``pip install --upgrade pytest tox``
-4. Change some code
-5. Run the tests: in the project root simply execute ``pytest``, and afterwards
+4. Install package in development mode: ``pip install -e .``
+5. Change some code
+6. Generate the compiled module: ``cythonize src/fmmap.pyx``
+7. Run the tests: in the project root simply execute ``pytest``, and afterwards
    preferably ``tox`` to test the full test matrix. Consider installing as many
    supported interpreters as possible (having them in your ``PATH`` is often
    sufficient).
-6. Submit a pull request and check for any errors reported by the Continuous
+8. Submit a pull request and check for any errors reported by the Continuous
    Integration service.
 
 License
