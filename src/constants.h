@@ -18,6 +18,13 @@
 #endif
 
 
+#if MEMMEM == 0
+    // Just to keep the linker happy. We'll implement it with a different name.
+    void *
+    memmem(const void *big, size_t b_len, const void *little, size_t l_len)
+    {}
+#endif
+
 #if MEMRCHR == 0
     // Just to keep the linker happy. We'll implement it with a different name.
     void *
