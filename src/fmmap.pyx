@@ -94,80 +94,82 @@ if py_version < PY38:
                 pass
 
 
-if py_version < PY38 and not platform.startswith("windows"):
-    # Constants needed for madvise
+IF UNAME_SYSNAME != "Windows":
+    if py_version < PY38:
+        # Constants needed for madvise
 
-    from posix cimport mman
+        from posix cimport mman
 
-    MADV_NORMAL = mman.MADV_NORMAL
-    MADV_RANDOM = mman.MADV_RANDOM
-    MADV_SEQUENTIAL = mman.MADV_SEQUENTIAL
-    MADV_WILLNEED = mman.MADV_WILLNEED
-    MADV_DONTNEED = mman.MADV_DONTNEED
-    # common in several Unix type systems;
-    if constants.FREE:
-        MADV_FREE = mman.MADV_FREE
+        MADV_NORMAL = mman.MADV_NORMAL
+        MADV_RANDOM = mman.MADV_RANDOM
+        MADV_SEQUENTIAL = mman.MADV_SEQUENTIAL
+        MADV_WILLNEED = mman.MADV_WILLNEED
+        MADV_DONTNEED = mman.MADV_DONTNEED
+        # common in several Unix type systems;
+        if constants.FREE:
+            MADV_FREE = mman.MADV_FREE
 
-    IF UNAME_SYSNAME == "Linux":
+        IF UNAME_SYSNAME == "Linux":
 
-        from platform import uname
+            from platform import uname
 
-        kernel = tuple(int(x) for x in uname()[2].split('-')[0].split('.'))
-        if kernel >= (2, 6, 16):
-            MADV_REMOVE = mman.MADV_REMOVE
-            MADV_DONTFORK = mman.MADV_DONTFORK
-            MADV_DOFORK = mman.MADV_DOFORK
-        if kernel >= (2, 6, 32):
-            if constants.HWPOISON:
-                MADV_HWPOISON = mman.MADV_HWPOISON
-            if constants.MERGEABLE:
-                MADV_MERGEABLE = mman.MADV_MERGEABLE
-                MADV_UNMERGEABLE = mman.MADV_UNMERGEABLE
-        if kernel >= (2, 6, 33) and constants.SOFT_OFFLINE:
-            MADV_SOFT_OFFLINE = mman.MADV_SOFT_OFFLINE
-        if kernel >= (2, 6, 38) and constants.HUGEPAGE:
-            MADV_HUGEPAGE = mman.MADV_HUGEPAGE
-            MADV_NOHUGEPAGE = mman.MADV_NOHUGEPAGE
-        if kernel >= (3, 4, 0) and constants.DUMP:
-            MADV_DONTDUMP = mman.MADV_DONTDUMP
-            MADV_DODUMP = mman.MADV_DODUMP
-        if kernel >= (4, 14, 0) and constants.ONFORK:
-            MADV_WIPEONFORK = mman.MADV_WIPEONFORK
-            MADV_KEEPONFORK = mman.MADV_KEEPONFORK
-        del kernel
-        del uname
+            kernel = tuple(int(x) for x in uname()[2].split('-')[0].split('.'))
+            if kernel >= (2, 6, 16):
+                MADV_REMOVE = mman.MADV_REMOVE
+                MADV_DONTFORK = mman.MADV_DONTFORK
+                MADV_DOFORK = mman.MADV_DOFORK
+            if kernel >= (2, 6, 32):
+                if constants.HWPOISON:
+                    MADV_HWPOISON = mman.MADV_HWPOISON
+                if constants.MERGEABLE:
+                    MADV_MERGEABLE = mman.MADV_MERGEABLE
+                    MADV_UNMERGEABLE = mman.MADV_UNMERGEABLE
+            if kernel >= (2, 6, 33) and constants.SOFT_OFFLINE:
+                MADV_SOFT_OFFLINE = mman.MADV_SOFT_OFFLINE
+            if kernel >= (2, 6, 38) and constants.HUGEPAGE:
+                MADV_HUGEPAGE = mman.MADV_HUGEPAGE
+                MADV_NOHUGEPAGE = mman.MADV_NOHUGEPAGE
+            if kernel >= (3, 4, 0) and constants.DUMP:
+                MADV_DONTDUMP = mman.MADV_DONTDUMP
+                MADV_DODUMP = mman.MADV_DODUMP
+            if kernel >= (4, 14, 0) and constants.ONFORK:
+                MADV_WIPEONFORK = mman.MADV_WIPEONFORK
+                MADV_KEEPONFORK = mman.MADV_KEEPONFORK
+            del kernel
+            del uname
 
-    ELSE:
-        # FreeBSD:
-        if constants.NOSYNC:
-            MADV_NOSYNC = constants.MADV_NOSYNC
-            MADV_AUTOSYNC = constants.MADV_AUTOSYNC
-        if constants.CORE:
-            MADV_NOCORE = constants.MADV_NOCORE
-            MADV_CORE = constants.MADV_CORE
-        if constants.PROTECT:
-            MADV_PROTECT = constants.MADV_PROTECT
+        ELSE:
+            # FreeBSD:
+            if constants.NOSYNC:
+                MADV_NOSYNC = constants.MADV_NOSYNC
+                MADV_AUTOSYNC = constants.MADV_AUTOSYNC
+            if constants.CORE:
+                MADV_NOCORE = constants.MADV_NOCORE
+                MADV_CORE = constants.MADV_CORE
+            if constants.PROTECT:
+                MADV_PROTECT = constants.MADV_PROTECT
 
 
-# Some madvise constants aren't in the standard library (in any Python version
-# so far), so we expose them here unconditionally if they are in <sys/mman.h>.
+    # Some madvise constants aren't in the standard library (in any Python
+    # version so far), so we expose them here unconditionally if they are in
+    # <sys/mman.h>.
 
-# OpenBSD:
-if constants.SPACEAVAIL:
-    MADV_SPACEAVAIL = constants.MADV_SPACEAVAIL
+    # OpenBSD:
+    if constants.SPACEAVAIL:
+        MADV_SPACEAVAIL = constants.MADV_SPACEAVAIL
 
-# Solaris/illumos/OpenIndiana/SmartOs:
-if constants.ACCESS_DEFAULT:
-    MADV_ACCESS_DEFAULT = constants.MADV_ACCESS_DEFAULT
-if constants.ACCESS_LWP:
-    MADV_ACCESS_LWP = constants.MADV_ACCESS_LWP
-if constants.ACCESS_MANY:
-    MADV_ACCESS_MANY = constants.MADV_ACCESS_MANY
-if constants.ACCESS_MANY_PSET:
-    MADV_ACCESS_MANY_PSET = constants.MADV_ACCESS_MANY_PSET
-#illumos/OpenIndiana/SmartOS:
-if constants.PURGE:
-    MADV_PURGE = constants.MADV_PURGE
+    # Solaris/illumos/OpenIndiana/SmartOs:
+    if constants.ACCESS_DEFAULT:
+        MADV_ACCESS_DEFAULT = constants.MADV_ACCESS_DEFAULT
+    if constants.ACCESS_LWP:
+        MADV_ACCESS_LWP = constants.MADV_ACCESS_LWP
+    if constants.ACCESS_MANY:
+        MADV_ACCESS_MANY = constants.MADV_ACCESS_MANY
+    if constants.ACCESS_MANY_PSET:
+        MADV_ACCESS_MANY_PSET = constants.MADV_ACCESS_MANY_PSET
+    #illumos/OpenIndiana/SmartOS:
+    if constants.PURGE:
+        MADV_PURGE = constants.MADV_PURGE
 
 
 if py_version < PY37:
@@ -205,29 +207,30 @@ class mmap(_mmap):
                 f"offset={self._offset}>"
             )
 
-    if py_version < PY38 and not platform.startswith("windows"):
+    IF UNAME_SYSNAME != "Windows":
+        if py_version < PY38:
 
-        def madvise(self, option, start=0, length=None):
-            cdef const unsigned char[:] buf = self
-            cdef ssize_t buf_len = len(buf)
-            cdef unsigned char *buf_p
+            def madvise(self, option, start=0, length=None):
+                cdef const unsigned char[:] buf = self
+                cdef ssize_t buf_len = len(buf)
+                cdef unsigned char *buf_p
 
-            if length is None:
-                length = buf_len
+                if length is None:
+                    length = buf_len
 
-            if start < 0 or start >= buf_len:
-                raise ValueError("madvise start out of bounds")
-            if length < 0:
-                raise ValueError("madvise length invalid")
-            if sys.maxsize - start < length:
-                raise OverflowError("madvise length too large")
+                if start < 0 or start >= buf_len:
+                    raise ValueError("madvise start out of bounds")
+                if length < 0:
+                    raise ValueError("madvise length invalid")
+                if sys.maxsize - start < length:
+                    raise OverflowError("madvise length too large")
 
-            if start + length > buf_len:
-                length = buf_len - start
+                if start + length > buf_len:
+                    length = buf_len - start
 
-            buf_p = &buf[start]
-            if mman.madvise(buf_p, length, option) != 0:
-                exc.PyErr_SetFromErrno(OSError)
+                buf_p = &buf[start]
+                if mman.madvise(buf_p, length, option) != 0:
+                    exc.PyErr_SetFromErrno(OSError)
 
     if py_version < PY38:
 
