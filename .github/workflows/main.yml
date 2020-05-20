@@ -12,6 +12,10 @@ jobs:
         os: [ubuntu-18.04, macos-latest]
         python: [3.5, 3.6, 3.7, 3.8]
         experimental: [false]
+        include:
+          - os: windows-latest
+            python: 3.8
+            experimental: true
 
     steps:
       - uses: actions/checkout@v2
