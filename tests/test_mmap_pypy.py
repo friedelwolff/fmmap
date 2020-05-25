@@ -569,7 +569,7 @@ class TestAppTestMMap:
         f.close()
 
     def test_memoryview(self):
-        from mmap import mmap, PROT_READ
+        from mmap import mmap, ACCESS_READ
         filename = self.tmpname + "y"
         f = open(filename, "bw+")
         f.write(b"foobar")
@@ -584,7 +584,7 @@ class TestAppTestMMap:
         m.close()
         f.close()
         with open(filename, "rb") as f:
-            m = mmap(f.fileno(), 6, prot=PROT_READ)
+            m = mmap(f.fileno(), 6, access=ACCESS_READ)
             b = memoryview(m)
             assert b.readonly is True
             assert b[:] == b"foobar"
