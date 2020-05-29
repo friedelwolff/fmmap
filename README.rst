@@ -56,7 +56,9 @@ The following requirements are supported and tested:
   - Linux
   - BSD systems (FreeBSD, NetBSD, OpenBSD)
   - SunOS/Solaris (illumos/OpenIndiana)
+
 The following operating systems receive limited testing, but should work:
+
   - macOS
   - Windows
 
