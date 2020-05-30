@@ -59,14 +59,14 @@ The following requirements are supported and tested:
 
 The following operating systems receive limited testing, but should work:
 
-  - macOS
-  - Windows
+- macOS
+- Windows
 
 To implement the searching functionality, fmmap makes use of functions in the C
 library. The performance characteristics therefore are platform and version
 dependent. Recent versions of glibc is known to be very good. Some
 characteristics of your data can also influence performance. The performance of
-fmmap should be better than the built-in mmap module in most cases
+fmmap should be better than the built-in mmap module in most cases.
 
 For non-Windows platforms fmmap currently assumes that your platform has an
 ``madvise(2)`` implementation and the header file <sys/mman.h>.
