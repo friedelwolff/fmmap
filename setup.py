@@ -27,7 +27,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='fmmap',
-    version='1.2.0',
+    version='2.0.0',
     description='A fast reimplementation of mmap',
     long_description=long_description,
     author='Friedel Wolff',
@@ -38,11 +38,13 @@ setup(
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)',
+        'Programming Language :: Cython',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
         'Operating System :: POSIX :: Linux',
         'Operating System :: POSIX :: BSD :: FreeBSD',
         'Operating System :: POSIX :: BSD :: NetBSD',
@@ -55,9 +57,7 @@ setup(
     # Note that this is a string of words separated by whitespace, not a list.
     keywords='mmap',
     package_dir={'': 'src'},
-    #ext_modules=cythonize("fmmap.pyx"),
     ext_modules=extensions,
-    #cmdclass={'build_ext': Cython.Build.new_build_ext},
 
     # Specify which Python versions you support. In contrast to the
     # 'Programming Language' classifiers above, 'pip install' will check this
